@@ -1,0 +1,50 @@
+class Truck:
+    def __init__(self, total_weight, front_axle_capacity, rear_axle_capacity):
+        self.total_weight = total_weight
+        self.front_axle_capacity = front_axle_capacity
+        self.rear_axle_capacity = rear_axle_capacity
+        self.front_weight = 0
+        self.rear_weight = 0
+
+    def calculate_weight_distribution(self):
+        # Calculate weight distribution based on capacities
+        if self.total_weight <= self.front_axle_capacity + 2 * self.rear_axle_capacity:
+            # Distributing weight
+            self.front_weight = min(self.front_axle_capacity, self.total_weight / 3)
+            remaining_weight = self.total_weight - self.front_weight
+
+            # Ideally, distribute remaining weight equally on two rear axles
+            self.rear_weight = remaining_weight / 2
+
+            # Check if rear weight exceeds axle capacity
+            if self.rear_weight > self.rear_axle_capacity:
+                self.rear_weight = self.rear_axle_capacity
+                self.front_weight = self.total_weight - 2 * self.rear_weight
+            
+            # Ensure front weight is within its capacity
+            if self.front_weight > self.front_axle_capacity:
+                self.front_weight = self.front_axle_capacity
+                self.rear_weight = (self.total_weight - self.front_weight) / 2
+
+            return {
+                "Front Axle Weight": self.front_weight,
+                "Rear Axle Weight (each)": self.rear_weight
+            }
+        else:
+            raise ValueError("Total weight exceeds maximum axle capacity limits.")
+
+# Example usage
+if __name__ == "__main__":
+    # Set truck parameters
+    total_weight = 80000  # total weight in pounds
+    front_axle_capacity = 12000  # front axle capacity in pounds
+    rear_axle_capacity = 34000  # each rear axle capacity in pounds
+
+    truck = Truck(total_weight, front_axle_capacity, rear_axle_capacity)
+    try:
+        distribution = truck.calculate_weight_distribution()
+        print("Optimal Weight Distribution:")
+        print(f"Front Axle Weight: {distribution['Front Axle Weight']} lbs")
+        print(f"Rear Axle Weight (each): {distribution['Rear Axle Weight (each)']} lbs")
+    except ValueError as e:
+        print(e)
