@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Item Input Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      color: #333;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Item Input</h1>
+
+    <form id="itemForm">
+      <div class="form-group">
+        <label for="itemNumber">Item Number</label>
+        <input type="text" id="itemNumber" name="itemNumber" required>
+      </div>
+      <div class="form-group">
+        <label for="itemWeight">Item Weight (kg)</label>
+        <input type="number" id="itemWeight" name="itemWeight" required min="0.1" step="any">
+      </div>
+      <input type="submit" value="Submit">
+    </form>
+
+    <div id="result" class="result" style="display: none;">
+      <h3>Item Details:</h3>
+      <p><strong>Item Number:</strong> <span id="displayItemNumber"></span></p>
+      <p><strong>Item Weight:</strong> <span id="displayItemWeight"></span> kg</p>
+    </div>
+  </div>
+
+  <script>
+    // Handle form submission
+    document.getElementById('itemForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Get form values
+      const itemNumber = document.getElementById('itemNumber').value;
+      const itemWeight = document.getElementById('itemWeight').value;
+
+      // Display the entered data
+      document.getElementById('displayItemNumber').textContent = itemNumber;
+      document.getElementById('displayItemWeight').textContent = itemWeight;
+
+      // Show the result
+      document.getElementById('result').style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
