@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Item Input</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      color: #333;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    input[type="submit"], .add-item-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    input[type="submit"]:hover, .add-item-btn:hover {
+      background-color: #45a049;
+    }
+    .item-container {
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Type 2 Truck</h1>
+    <h2>Add Multiple Items</h2>
+
+    <form id="itemForm">
+      <div id="itemList">
+        <div class="item-container">
+          <div class="form-group">
+            <label for="itemNumber_1">Item Number</label>
+            <input type="text" id="itemNumber_1" name="itemNumber[]" required>
+          </div>
+          <div class="form-group">
+            <label for="itemWeight_1">Item Weight (kg)</label>
+            <input type="number" id="itemWeight_1" name="itemWeight[]" required min="0.1" step="any">
+          </div>
+        </div>
+      </div>
+      
+      <input type="button" value="Add Another Item" class="add-item-btn" id="addItemButton">
+      <input type="submit" value="Submit">
+    </form>
+
+    <div id="result" style="display: none;">
+      <h3>Items Added:</h3>
+      <table id="itemTable">
+        <thead>
+          <tr>
+            <th>Item Number</th>
+            <th>Item Weight (kg)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Variable to keep track of item number (for dynamic IDs)
+    let itemCounter = 1;
+
+    // Handle Add Another Item button click
+    document.getElementById('addItemButton').addEventListener('click', function() {
+      itemCounter++;
+
+      // Create new item input fields dynamically
+      const newItemContainer = document.createElement('div');
+      newItemContainer.classList.add('item-container');
+
+      newItemContainer.innerHTML = `
+        <div class="form-group">
+          <label for="itemNumber_${itemCounter}">Item Number</label>
+          <input type="text" id="itemNumber_${itemCounter}" name="itemNumber[]" required>
+        </div>
+        <div class="form-group">
+          <label for="itemWeight_${itemCounter}">Item Weight (kg)</label>
+          <input type="number" id="itemWeight_${itemCounter}" name="itemWeight[]" required min="0.1" step="any">
+        </div>
+      `;
+
+      // Append the new item fields to the item list
+      document.getElementById('itemList').appendChild(newItemContainer);
+    });
+
+    // Handle form submission
+    document.getElementById('itemForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      window.location.href="results.html"
+
+      // Get all item data
+      const itemNumbers = document.querySelectorAll('input[name="itemNumber[]"]');
+      const itemWeights = document.querySelectorAll('input[name="itemWeight[]"]');
+      
+      // Create an array to store the item details
+      let itemDetails = [];
+
+      for (let i = 0; i < itemNumbers.length; i++) {
+        const itemNumber = itemNumbers[i].value;
+        const itemWeight = itemWeights[i].value;
+
+        // Push item details to the array
+        itemDetails.push({ itemNumber, itemWeight });
+      }
+
+      // Get the table body element
+      const tableBody = document.getElementById('itemTable').getElementsByTagName('tbody')[0];
+      tableBody.innerHTML = '';  // Clear any existing rows
+
+      // Add a row for each item in the table
+      itemDetails.forEach(item => {
+        const row = tableBody.insertRow();
+
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+
+        cell1.textContent = item.itemNumber;
+        cell2.textContent = item.itemWeight;
+      });
+
+      // Show the result section with the table
+      document.getElementById('result').style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
