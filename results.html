@@ -70,8 +70,29 @@
         <li>Optimal Loading Time: 20 minutes</li>
         <li>Fuel Efficiency Improvement: 5%</li>
     </ul>
+    <div id="imageContainer"></div>
+         <script>
+        // Array of the two PNG image paths
+        const images = [
+            "image1.png", // Path to the first PNG image
+            "image2.png"  // Path to the second PNG image
+        ];
 
+        // Randomly select an image
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+
+        // Create an <img> element and set its source to the randomly selected image
+        const img = document.createElement("img");
+        img.src = randomImage;
+        img.alt = "Random Image"; // Alt text for the image
+        img.style.maxWidth = "100%"; // Optional: Adjust image size
+
+        // Append the image to the container
+        document.getElementById("imageContainer").appendChild(img);
+    </script>
     </body>
+
+       
 </html>
 
     
