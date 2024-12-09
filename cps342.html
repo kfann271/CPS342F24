@@ -79,7 +79,7 @@
       <div class="dropdown">
         <button class="button">Type</button>
         <div class="content">
-          <a href="TripleAxel.html" target=_self>
+          <a href="TripleAxle.html" target=_self>
           Three Axle
           </a>
           <br>
@@ -96,110 +96,6 @@
        <image src= "C.jpg" height="200"></image>
     </header>
   <div class="container">
-   
-    <h2>Add Multiple Items</h2>
-
-    <form id="itemForm">
-      <div id="itemList">
-        <div class="item-container">
-          <div class="form-group">
-            <label for="itemNumber_1">Item Number</label>
-            <input type="text" id="itemNumber_1" name="itemNumber[]" required>
-          </div>
-          <div class="form-group">
-            <label for="itemWeight_1">Item Weight (kg)</label>
-            <input type="number" id="itemWeight_1" name="itemWeight[]" required min="0.1" step="any">
-          </div>
-        </div>
-      </div>
-      
-      <input type="button" value="Add Another Item" class="add-item-btn" id="addItemButton">
-      <a href ="results.html">
-      <input type="submit" value="Submit">
-      </a>
-    </form>
-
-    <div id="result" style="display: none;">
-      <h3>Items Added:</h3>
-      <table id="itemTable">
-        <thead>
-          <tr>
-            <th>Item Number</th>
-            <th>Item Weight (kg)</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </div>
-
-  <script>
-    // Variable to keep track of item number (for dynamic IDs)
-    let itemCounter = 1;
-
-    // Handle Add Another Item button click
-    document.getElementById('addItemButton').addEventListener('click', function() {
-      itemCounter++;
-
-      // Create new item input fields dynamically
-      const newItemContainer = document.createElement('div');
-      newItemContainer.classList.add('item-container');
-
-      newItemContainer.innerHTML = `
-        <div class="form-group">
-          <label for="itemNumber_${itemCounter}">Item Number</label>
-          <input type="text" id="itemNumber_${itemCounter}" name="itemNumber[]" required>
-        </div>
-        <div class="form-group">
-          <label for="itemWeight_${itemCounter}">Item Weight (kg)</label>
-          <input type="number" id="itemWeight_${itemCounter}" name="itemWeight[]" required min="0.1" step="any">
-        </div>
-      `;
-
-      // Append the new item fields to the item list
-      document.getElementById('itemList').appendChild(newItemContainer);
-    });
-
-    // Handle form submission
-    document.getElementById('itemForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      
-
-      // Get all item data
-      const itemNumbers = document.querySelectorAll('input[name="itemNumber[]"]');
-      const itemWeights = document.querySelectorAll('input[name="itemWeight[]"]');
-      
-      // Create an array to store the item details
-      let itemDetails = [];
-
-      for (let i = 0; i < itemNumbers.length; i++) {
-        const itemNumber = itemNumbers[i].value;
-        const itemWeight = itemWeights[i].value;
-
-        // Push item details to the array
-        itemDetails.push({ itemNumber, itemWeight });
-      }
-
-      // Get the table body element
-      const tableBody = document.getElementById('itemTable').getElementsByTagName('tbody')[0];
-      tableBody.innerHTML = '';  // Clear any existing rows
-
-      // Add a row for each item in the table
-      itemDetails.forEach(item => {
-        const row = tableBody.insertRow();
-
-        const cell1 = row.insertCell(0);
-        const cell2 = row.insertCell(1);
-
-        cell1.textContent = item.itemNumber;
-        cell2.textContent = item.itemWeight;
-      });
-
-      // Show the result section with the table
-      document.getElementById('result').style.display = 'block';
-    });
-  </script>
-
 <p></p>
  
 
